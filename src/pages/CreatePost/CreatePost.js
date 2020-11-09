@@ -1,21 +1,48 @@
 import React, { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { selectUserSpace } from "../../store/mySpace/mySpaceSelectors";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { createNewPost, setPostFailure } from "../../store/mySpace/mySpaceActions";
+import { postSuccess, selectUserInfo, selectUserSpace } from "../../store/mySpace/mySpaceSelectors";
 import "./CreatePost.css";
+import _ from "lodash";
 
 function CreatePost() {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const space = useSelector(selectUserSpace);
+  const postOk = useSelector(postSuccess);
+  const user = useSelector(selectUserInfo);
+  // console.log(space);
   const [postData, setPostData] = useState({
     name: "",
     content: "",
     imageUrl: "",
-    spaceId: 0,
+    spaceId: space?.id,
   });
+
+  if (_.isEmpty(user)) {
+    history.push("/");
+  }
+
+  if (postOk) {
+    setInterval(() => {
+      dispatch(setPostFailure());
+    }, 2000);
+  }
+
+  // console.log(postData);
+  // console.log("postOK", postOk);
 
   const styles = {
     backgroundColor: space?.backgroundColor,
     color: space?.color,
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(createNewPost(postData));
   };
 
   return (
@@ -25,7 +52,7 @@ function CreatePost() {
         <h3 className="MySpace-jumbo-subheader">{space?.description}</h3>
       </Jumbotron>
       <div className="CreatePost-form-wrapper">
-        <form className="CreatePost-form">
+        <form onSubmit={handleSubmit} className="CreatePost-form">
           <h1 className="CreatePost-header">Post a cool story bro...</h1>
           <label className="CreatePost-label" htmlFor="name">
             Title
@@ -58,6 +85,11 @@ function CreatePost() {
             value={postData.imageUrl}
           />
           <button className="CreatePost-btn">Post bruh!</button>
+          {postOk ? (
+            <div>
+              <p>Post successfully submmited bro!</p>
+            </div>
+          ) : null}
         </form>
       </div>
     </div>

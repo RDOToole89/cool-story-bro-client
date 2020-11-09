@@ -16,13 +16,26 @@ export const saveNewPost = (userPostObject) => {
   };
 };
 
+export const setPostSuccess = () => {
+  return {
+    type: "SET_POST_SUCCESS",
+  };
+};
+export const setPostFailure = () => {
+  return {
+    type: "SET_POST_FAILURE",
+  };
+};
+
 export const createNewPost = (userPostObject) => async (dispatch, getState) => {
-  dispatch(saveNewPost());
+  // console.log("USEROBJECT", userPostObject);
 
   try {
-    const response = Axios.post(`${API_URL}`, { ...userPostObject });
+    const response = await Axios.post(`${API_URL}/spaces/stories`, { ...userPostObject });
 
-    console.log("CREATE_NEW_POST response", response);
+    if (response) {
+      dispatch(saveNewPost(userPostObject));
+    }
   } catch (e) {
     console.log(e);
   }
@@ -54,7 +67,7 @@ export const fetchUserSpace = () => async (dispatch, getState) => {
 };
 
 export const deleteStory = (storyId) => async (dispatch, getState) => {
-  console.log("INSIDE DELETESTORY?");
+  // console.log("INSIDE DELETESTORY?");
 
   if (storyId) {
     try {

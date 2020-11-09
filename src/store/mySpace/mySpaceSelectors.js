@@ -15,3 +15,7 @@ export const selectUserStories = (reduxState) => {
     return stories;
   }
 };
+
+export const postSuccess = (reduxState) => {
+  return reduxState.mySpace.postSuccess;
+};
