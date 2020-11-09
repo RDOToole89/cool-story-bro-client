@@ -1,0 +1,32 @@
+.EditProfile {
+  height: 80vh;
+}
+
+.EditProfile-form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.EditProfile-form {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1em;
+  padding: 4em 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.EditProfile-label {
+  align-self: flex-start;
+}
+
+.EditProfile-input {
+  width: 100%;
+  align-self: flex-start;
+  margin-bottom: 0.5em;
+}
+
+.EditProfile-btn {
+  margin-top: 1em;
+}

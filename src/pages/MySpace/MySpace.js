@@ -19,7 +19,7 @@ function MySpace() {
   const space = useSelector(selectUserSpace);
   const stories = useSelector(selectUserStories);
 
-  console.log("WHAT IS USER?", user);
+  // console.log("WHAT IS USER?", user);
   // console.log("WHAT IS SPACE?", space);
   // console.log("WHAT IS STORIES", stories);
 
@@ -36,9 +36,14 @@ function MySpace() {
     color: space?.color,
   };
 
-  const createPost = (e) => {
+  const goToCreatePost = (e) => {
     e.preventDefault();
-    history.push("/myspace/post/");
+    history.push("/myspace/post");
+  };
+
+  const goToEditProfile = (e) => {
+    e.preventDefault();
+    history.push("/myspace/profile");
   };
 
   return (
@@ -52,8 +57,8 @@ function MySpace() {
       ) : (
         <div className="MySpace-container">
           <div className="MySpace-buttons">
-            <button>Edit My Space</button>
-            <button onClick={createPost}>Post a cool story bro</button>
+            <button onClick={goToEditProfile}>Edit My Space</button>
+            <button onClick={goToCreatePost}>Post a cool story bro</button>
           </div>
           <div className="MySpace-stories">
             {stories?.map((story) => (

@@ -16,6 +16,7 @@ import SpaceDetails from "./pages/SpaceDetails/SpaceDetails";
 import Spaces from "./pages/Spaces/Spaces";
 import MySpace from "./pages/MySpace/MySpace";
 import CreatePost from "./pages/CreatePost/CreatePost";
+import EditProfile from "./pages/EditProfile/EditProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/spaces/:id" component={SpaceDetails} />
         <Route exact path="/myspace" component={MySpace} />
         <Route exact path="/myspace/post" component={CreatePost} />
+        <Route exact path="/myspace/profile" component={EditProfile} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
       </Switch>
