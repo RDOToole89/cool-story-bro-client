@@ -12,15 +12,24 @@ export const saveUserSpace = (userSpaceObject) => {
 export const fetchUserSpace = () => async (dispatch, getState) => {
   dispatch(appLoading());
 
-  try {
-    const userSpace = await Axios.get(`${API_URL}/me`);
+  const token = getState().user.token;
 
-    dispatch(saveUserSpace(userSpace));
+  if (token) {
+    try {
+      const response = await Axios.get(`${API_URL}/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // console.log("WHAT IS USERSPACE?", response.data);
 
-    if (userSpace) {
-      dispatch(appDoneLoading());
+      dispatch(saveUserSpace(response.data));
+
+      if (response) {
+        dispatch(appDoneLoading());
+      }
+    } catch (e) {
+      console.log(e);
     }
-  } catch (e) {
-    console.log(e);
+  } else {
+    return "User not logged in.";
   }
 };

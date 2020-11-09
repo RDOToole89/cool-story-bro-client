@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MySpace.css";
 import { Jumbotron } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserSpace } from "../../store/mySpace/mySpaceActions";
+import {
+  selectUserInfo,
+  selectUserSpace,
+  selectUserStories,
+} from "../../store/mySpace/mySpaceSelectors";
 
 function MySpace() {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUserInfo);
+  const space = useSelector(selectUserSpace);
+  const stories = useSelector(selectUserStories);
+
+  console.log("WHAT IS USER?", user);
+  console.log("WHAT IS SPACE?", space);
+  console.log("WHAT IS STORIES", stories);
+
+  useEffect(() => {
+    dispatch(fetchUserSpace());
+  }, [dispatch]);
+
   return (
     <div className="MySpace">
       <Jumbotron>

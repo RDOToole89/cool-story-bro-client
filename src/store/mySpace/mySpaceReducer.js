@@ -1,5 +1,5 @@
 const initialState = {
-  userSpace: {},
+  userData: {},
 };
 
 const mySpaceReducer = (state = initialState, action) => {
@@ -7,7 +7,7 @@ const mySpaceReducer = (state = initialState, action) => {
     case "SAVE_USER_SPACE": {
       return {
         ...state,
-        userSpace: { ...action.payload },
+        userData: { ...action.payload },
       };
     }
 
