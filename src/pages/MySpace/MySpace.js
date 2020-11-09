@@ -8,6 +8,7 @@ import {
   selectUserSpace,
   selectUserStories,
 } from "../../store/mySpace/mySpaceSelectors";
+import SpaceStoryWithDelete from "../../components/SpaceStoryWithDelete/SpaceStoryWithDelete";
 
 function MySpace() {
   const dispatch = useDispatch();
@@ -23,27 +24,49 @@ function MySpace() {
     dispatch(fetchUserSpace());
   }, [dispatch]);
 
+  const styles = {
+    backgroundColor: space?.backgroundColor,
+    color: space?.color,
+  };
+
   return (
-    <div className="MySpace">
-      <Jumbotron>
-        <h1>My Space</h1>
+    <div style={styles} className="MySpace">
+      <Jumbotron className="MySpace-jumbo">
+        <h1 className="MySpace-jumbo-header">{space?.title}</h1>
+        <h3 className="MySpace-jumbo-subheader">{space?.description}</h3>
       </Jumbotron>
-      <div className="MySpace-container">
-        <div className="MySpace-buttons">
-          <button>Edit My Space</button>
-          <button>Post a cool story bro</button>
-        </div>
-        <div className="MySpace-stories">
+      {!space ? (
+        <h1>Loading...</h1>
+      ) : (
+        <div className="MySpace-container">
+          <div className="MySpace-buttons">
+            <button>Edit My Space</button>
+            <button>Post a cool story bro</button>
+          </div>
           <div className="MySpace-stories">
-            <h2 className="MySpace-stories-title">Story Title</h2>
-            <img className="MySpace-stories-image" src="/" alt="Story" />
-            <p className="MySpace-stories-content">Content</p>
-            <p className="MySpace-stories-timestamp">TimeStamp</p>
+            {stories?.map((story) => (
+              <SpaceStoryWithDelete
+                key={story.id}
+                id={story.id}
+                image={story.imageUrl}
+                name={story.name}
+                content={story.content}
+                createdAt={story.createdAt}
+              />
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
 
 export default MySpace;
+
+// <div className="MySpace-stories">
+// <div className="MySpace-stories">
+//   <h2 className="MySpace-stories-title">Story Title</h2>
+//   <img className="MySpace-stories-image" src="/" alt="Story" />
+//   <p className="MySpace-stories-content">Content</p>
+//   <p className="MySpace-stories-timestamp">TimeStamp</p>
+// </div>

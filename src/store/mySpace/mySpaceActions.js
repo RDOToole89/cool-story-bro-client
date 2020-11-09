@@ -33,3 +33,19 @@ export const fetchUserSpace = () => async (dispatch, getState) => {
     return "User not logged in.";
   }
 };
+
+export const deleteStory = (storyId) => async (dispatch, getState) => {
+  dispatch(appLoading());
+
+  const id = storyId;
+  console.log("ID iS?????", id);
+
+  if (id) {
+    try {
+      const response = await Axios.delete(`${API_URL}/me`);
+      console.log("WHAT IS RESPONSE???!", response);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+};
