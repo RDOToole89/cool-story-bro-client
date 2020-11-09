@@ -30,8 +30,16 @@ export const setPostFailure = () => {
 export const createNewPost = (userPostObject) => async (dispatch, getState) => {
   // console.log("USEROBJECT", userPostObject);
 
+  const token = getState().user.token;
+
   try {
-    const response = await Axios.post(`${API_URL}/spaces/stories`, { ...userPostObject });
+    const response = await Axios.post(
+      `${API_URL}/spaces/stories`,
+      { ...userPostObject },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
 
     if (response) {
       dispatch(saveNewPost(userPostObject));
