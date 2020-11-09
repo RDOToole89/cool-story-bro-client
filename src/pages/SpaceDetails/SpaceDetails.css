@@ -1,0 +1,12 @@
+.SpaceDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SpaceDetails-headerbox {
+  padding: 2em;
+  text-align: center;
+  background-color: aquamarine;
+  width: 100%;
+}

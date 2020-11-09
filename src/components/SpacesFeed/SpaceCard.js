@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./SpaceCard.css";
 
 function SpaceCard(props) {
@@ -12,7 +13,9 @@ function SpaceCard(props) {
     <div key={id} style={styles} className="SpaceCard">
       <h1 className="SpaceCard-header">{title}</h1>
       <p className="SpaceCard-text">{description}</p>
-      <button className="SpaceCard-btn">Visit Space</button>
+      <Link to={`/spaces/${id}`}>
+        <button className="SpaceCard-btn">Visit Space</button>
+      </Link>
     </div>
   );
 }

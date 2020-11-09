@@ -9,12 +9,18 @@ export const saveSpaces = (spacesArray) => {
   };
 };
 
+export const saveSpace = (spaceObject) => {
+  return {
+    type: "SAVE_SPACE",
+    payload: spaceObject,
+  };
+};
+
 export const fetchSpaces = () => async (dispatch, getState) => {
   dispatch(appLoading());
 
   try {
     const spaces = await Axios.get(`${API_URL}/spaces`);
-    console.log(spaces);
 
     dispatch(saveSpaces(spaces.data));
 
@@ -24,4 +30,18 @@ export const fetchSpaces = () => async (dispatch, getState) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const fetchSpaceById = (id) => async (dispatch, getState) => {
+  dispatch(appLoading());
+
+  try {
+    const space = await Axios.get(`${API_URL}/spaces/${id}`);
+
+    console.log(space);
+
+    if (space) {
+      dispatch(appDoneLoading());
+    }
+  } catch (e) {}
 };

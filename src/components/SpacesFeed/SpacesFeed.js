@@ -6,7 +6,6 @@ import "./SpacesFeed.css";
 
 function SpacesFeed() {
   const spaces = useSelector(allSpaces);
-  console.log("WHAT IS SPACES?", spaces);
 
   return (
     <div className="SpacesFeed">

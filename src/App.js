@@ -13,6 +13,7 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import Home from "./pages/Home/Home";
 import Other from "./pages/Other/Other";
+import SpaceDetails from "./pages/SpaceDetails/SpaceDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,9 +30,10 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/other" component={Other} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/login" component={Login} />
+        <Route exact path="/spaces/:id" component={SpaceDetails} />
+        <Route exact path="/other" component={Other} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/login" component={Login} />
       </Switch>
     </div>
   );

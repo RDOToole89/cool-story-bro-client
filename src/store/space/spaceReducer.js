@@ -1,5 +1,6 @@
 const initialState = {
   all: [],
+  singleSpace: {},
 };
 
 const spaceReducer = (state = initialState, action) => {
@@ -9,6 +10,12 @@ const spaceReducer = (state = initialState, action) => {
       return {
         ...state,
         all: [...action.payload],
+      };
+    }
+    case "SAVE_SPACE": {
+      return {
+        ...state,
+        singleSpace: { ...action.payload },
       };
     }
     default:
