@@ -25,12 +25,6 @@ function CreatePost() {
     history.push("/");
   }
 
-  if (postOk) {
-    setInterval(() => {
-      dispatch(setPostFailure());
-    }, 2000);
-  }
-
   // console.log(postData);
   // console.log("postOK", postOk);
 
@@ -41,8 +35,16 @@ function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setPostFailure());
 
     dispatch(createNewPost(postData));
+
+    // if (postOk) {
+    //   setInterval(() => {
+    //     dispatch(setPostFailure());
+    //     history.push("/myspace");
+    //   }, 4000);
+    // }
   };
 
   return (
@@ -81,9 +83,12 @@ function CreatePost() {
             id="image"
             type="text"
             className="CreatePost-input"
-            onChange={(e) => setPostData({ ...postData, imageUrl: e.target.value })}
+            onChange={(e) => {
+              setPostData({ ...postData, imageUrl: e.target.value });
+            }}
             value={postData.imageUrl}
           />
+
           <button className="CreatePost-btn">Post bruh!</button>
           {postOk ? (
             <div>
@@ -91,6 +96,11 @@ function CreatePost() {
             </div>
           ) : null}
         </form>
+        {postData.imageUrl && (
+          <div className="Image-preview-box">
+            <img className="Image-preview" src={postData.imageUrl} alt="preview" />
+          </div>
+        )}
       </div>
     </div>
   );
