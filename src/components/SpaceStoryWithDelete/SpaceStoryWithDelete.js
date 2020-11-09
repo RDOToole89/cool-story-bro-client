@@ -1,13 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteStory, fetchUserSpace } from "../../store/mySpace/mySpaceActions";
 import "./SpaceStoryWithDelete.css";
 
 function SpaceStoryWithDelete(props) {
+  const dispatch = useDispatch();
   // console.log("WHAT IN THE PROPS?", props);
 
-  const { name, image, content, createdAt } = props;
+  const { name, image, content, createdAt, id } = props;
 
   const handleClick = (e) => {
     e.preventDefault();
+
+    dispatch(deleteStory(id));
+    dispatch(fetchUserSpace());
   };
 
   return (
@@ -16,7 +22,7 @@ function SpaceStoryWithDelete(props) {
       <img className="SpaceStory-image" src={image} alt="Story" />
       <p className="SpaceStory-content">{content}</p>
       <p className="SpaceStory-timestamp">{createdAt}</p>
-      <button onClick={handleClick} class="SpaceStoryDel-btn">
+      <button onClick={handleClick} className="SpaceStoryDel-btn">
         Delete
       </button>
     </div>

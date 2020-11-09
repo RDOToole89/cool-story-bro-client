@@ -115,11 +115,11 @@ You will be provided with a wireframe that shows an overview of the app along wi
 
 | Criteria                                                            | Points |
 | ------------------------------------------------------------------- | ------ |
-| Server contains sequelize models and migrations for Space & Story   | 2      | X |
-| title in space and name in story are validated in model & migration | 2      | X |
-| User, Space and Story models are correctly related                  | 2      | X |
-| Seeders are present to create at least 2 spaces and 4 stories       | 2      | X |
-| Total                                                               | 8      | X |
+| Server contains sequelize models and migrations for Space & Story   | 2      | 2 |
+| title in space and name in story are validated in model & migration | 2      | 2 |
+| User, Space and Story models are correctly related                  | 2      | 2 |
+| Seeders are present to create at least 2 spaces and 4 stories       | 2      | 2 |
+| Total                                                               | 8      | 8 |
 
 ## Features
 
@@ -131,11 +131,11 @@ You will be provided with a wireframe that shows an overview of the app along wi
 
 | Criteria                                                                | Points |
 | ----------------------------------------------------------------------- | ------ |
-| The frontend route `/` displays a list of spaces                        | 1      |
-| The spaces have a backgroundColor and color as specified by their users | 1      |
-| The data is managed using Redux                                         | 2      |
-| Each space has a `Visit space` button, it links to a space's details    | 1      |
-| Total                                                                   | 5      |
+| The frontend route `/` displays a list of spaces                        | 1 1    |
+| The spaces have a backgroundColor and color as specified by their users | 1 1    |
+| The data is managed using Redux                                         | 2 2    |
+| Each space has a `Visit space` button, it links to a space's details    | 1 1    |
+| Total                                                                   | 5 5    |
 
 ### 2. As a user interested in people's lives, I want to read people's stories, so I can be informed
 
@@ -144,12 +144,12 @@ You will be provided with a wireframe that shows an overview of the app along wi
 
 | Criteria                                                                | Points |
 | ----------------------------------------------------------------------- | ------ |
-| The frontend route `/spaces/:id` displays a detail page for a space     | 1      |
-| The stories are displayed with a name, description and an image         | 1      |
-| The space and its stories are queried from the database using 1 query   | 2      |
-| The space has a backgroundColor and color as specified by their user    | 1      |
-| The stories are displayed in order, from newest to oldest (`createdAt`) | 2      |
-| Total                                                                   | 7      |
+| The frontend route `/spaces/:id` displays a detail page for a space     | 1 1    |
+| The stories are displayed with a name, description and an image         | 1 1    |
+| The space and its stories are queried from the database using 1 query   | 2 1    |
+| The space has a backgroundColor and color as specified by their user    | 1 1    |
+| The stories are displayed in order, from newest to oldest (`createdAt`) | 2 2    |
+| Total                                                                   | 7 7    |
 
 ### 3. As a logged in user I want to be able to view my space and delete my own stories
 
@@ -160,15 +160,15 @@ You will be provided with a wireframe that shows an overview of the app along wi
 - Alternatively fetch the data from the endpoint set up for feature #2 (detail page)
 - Users also want to be able to delete their own stories.
 
-| Criteria                                                                                                 | Points |
-| -------------------------------------------------------------------------------------------------------- | ------ |
-| You see a `My space` link in the navbar (but only when you're logged in)                                 | 1      |
-| When you click `My space` you see your space and your stories                                            | 1      |
-| Your space & stories are fetched using the `/me` and `/login` endpoints                                  | 2      |
-| Your space's details are managed by redux                                                                | 2      |
-| On `My space`, stories are displayed with a `Delete Story` button which lets them delete their own story | 2.5    |
-| The story is removed from the space without refreshing                                                   | 1.5    |
-| Total                                                                                                    | 10     |
+| Criteria                                                                                                 | Points  |
+| -------------------------------------------------------------------------------------------------------- | ------- |
+| You see a `My space` link in the navbar (but only when you're logged in)                                 | 1 1     |
+| When you click `My space` you see your space and your stories                                            | 1 1     |
+| Your space & stories are fetched using the `/me` and `/login` endpoints                                  | 2 1     |
+| Your space's details are managed by redux                                                                | 2 1     |
+| On `My space`, stories are displayed with a `Delete Story` button which lets them delete their own story | 2.5 1   |
+| The story is removed from the space without refreshing                                                   | 1.5 1.5 |
+| Total                                                                                                    | 10 10   |
 
 ### 4. As a user signing up I want a space to be created for me
 
@@ -181,10 +181,10 @@ You will be provided with a wireframe that shows an overview of the app along wi
 
 | Criteria                                                                                       | Points |
 | ---------------------------------------------------------------------------------------------- | ------ |
-| When a user sign's up a space is created and saved to the database with the correct attributes | 3      |
-| The space is sent in the response of `/signup` along with the new user                         | 1      |
-| The space is stored in the redux store in the frontend                                         | 1      |
-| Total                                                                                          | 5      |
+| When a user sign's up a space is created and saved to the database with the correct attributes | 3 3    |
+| The space is sent in the response of `/signup` along with the new user                         | 1 2    |
+| The space is stored in the redux store in the frontend                                         | 1 1    |
+| Total                                                                                          | 5 5    |
 
 ### 5. As a logged in user I want to be able to post stories on space, so I can share my adventures with the world
 

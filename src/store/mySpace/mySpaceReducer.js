@@ -1,5 +1,6 @@
 const initialState = {
   userData: {},
+  newPost: {},
 };
 
 const mySpaceReducer = (state = initialState, action) => {
@@ -8,6 +9,12 @@ const mySpaceReducer = (state = initialState, action) => {
       return {
         ...state,
         userData: { ...action.payload },
+      };
+    }
+    case "SAVE_NEW_POST": {
+      return {
+        ...state,
+        newPost: { ...action.payload },
       };
     }
 

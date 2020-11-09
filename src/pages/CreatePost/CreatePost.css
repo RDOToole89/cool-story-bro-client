@@ -1,0 +1,32 @@
+.CreatePost {
+  height: 80vh;
+}
+
+.CreatePost-form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.CreatePost-form {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1em;
+  padding: 4em 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.CreatePost-label {
+  align-self: flex-start;
+}
+
+.CreatePost-input {
+  width: 100%;
+  align-self: flex-start;
+  margin-bottom: 0.5em;
+}
+
+.CreatePost-btn {
+  margin-top: 1em;
+}

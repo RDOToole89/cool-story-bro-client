@@ -9,6 +9,25 @@ export const saveUserSpace = (userSpaceObject) => {
   };
 };
 
+export const saveNewPost = (userPostObject) => {
+  return {
+    type: "SAVE_NEW_POST",
+    payload: userPostObject,
+  };
+};
+
+export const createNewPost = (userPostObject) => async (dispatch, getState) => {
+  dispatch(saveNewPost());
+
+  try {
+    const response = Axios.post(`${API_URL}`, { ...userPostObject });
+
+    console.log("CREATE_NEW_POST response", response);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const fetchUserSpace = () => async (dispatch, getState) => {
   dispatch(appLoading());
 
@@ -35,17 +54,14 @@ export const fetchUserSpace = () => async (dispatch, getState) => {
 };
 
 export const deleteStory = (storyId) => async (dispatch, getState) => {
-  dispatch(appLoading());
+  console.log("INSIDE DELETESTORY?");
 
-  const id = storyId;
-  console.log("ID iS?????", id);
-
-  if (id) {
+  if (storyId) {
     try {
-      const response = await Axios.delete(`${API_URL}/me`);
+      const response = await Axios.delete(`${API_URL}/spaces/stories`, { data: { id: storyId } });
       console.log("WHAT IS RESPONSE???!", response);
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   }
 };

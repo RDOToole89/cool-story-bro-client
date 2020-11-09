@@ -9,24 +9,36 @@ import {
   selectUserStories,
 } from "../../store/mySpace/mySpaceSelectors";
 import SpaceStoryWithDelete from "../../components/SpaceStoryWithDelete/SpaceStoryWithDelete";
+import { useHistory } from "react-router-dom";
+import _ from "lodash";
 
 function MySpace() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(selectUserInfo);
   const space = useSelector(selectUserSpace);
   const stories = useSelector(selectUserStories);
 
   console.log("WHAT IS USER?", user);
-  console.log("WHAT IS SPACE?", space);
-  console.log("WHAT IS STORIES", stories);
+  // console.log("WHAT IS SPACE?", space);
+  // console.log("WHAT IS STORIES", stories);
 
   useEffect(() => {
     dispatch(fetchUserSpace());
   }, [dispatch]);
 
+  if (_.isEmpty(user)) {
+    history.push("/");
+  }
+
   const styles = {
     backgroundColor: space?.backgroundColor,
     color: space?.color,
+  };
+
+  const createPost = (e) => {
+    e.preventDefault();
+    history.push("/myspace/post/");
   };
 
   return (
@@ -41,7 +53,7 @@ function MySpace() {
         <div className="MySpace-container">
           <div className="MySpace-buttons">
             <button>Edit My Space</button>
-            <button>Post a cool story bro</button>
+            <button onClick={createPost}>Post a cool story bro</button>
           </div>
           <div className="MySpace-stories">
             {stories?.map((story) => (
