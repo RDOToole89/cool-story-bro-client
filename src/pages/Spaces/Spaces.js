@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import SpacesFeed from "../../components/SpacesFeed/SpacesFeed";
 import { fetchSpaces } from "../../store/space/spaceActions";
 
-function Home() {
+function Spaces() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -12,13 +12,13 @@ function Home() {
   }, [dispatch]);
 
   return (
-    <div className="Home">
+    <div className="Spaces">
       <Jumbotron>
-        <h1>Home</h1>
+        <h1>Spaces</h1>
       </Jumbotron>
       <SpacesFeed />
     </div>
   );
 }
 
-export default Home;
+export default Spaces;

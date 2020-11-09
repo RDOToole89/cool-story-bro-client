@@ -38,7 +38,7 @@ export const fetchSpaceById = (id) => async (dispatch, getState) => {
   try {
     const space = await Axios.get(`${API_URL}/spaces/${id}`);
 
-    console.log(space);
+    dispatch(saveSpace(space.data));
 
     if (space) {
       dispatch(appDoneLoading());

@@ -1,19 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import SpaceStory from "../../components/SpaceStory/SpaceStory";
+import { fetchSpaceById } from "../../store/space/spaceActions";
+import { singleSpace, selectStories } from "../../store/space/spaceSelectors";
+
 import "./SpaceDetails.css";
 
 function SpaceDetails() {
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+  const space = useSelector(singleSpace);
+  const stories = useSelector(selectStories);
+  console.log("WHATS IN SPACE?", space);
+  useEffect(() => {
+    dispatch(fetchSpaceById(id));
+  }, [dispatch, id]);
+
+  const styles = {
+    backgroundColor: space.backgroundColor,
+    color: space.color,
+  };
+
+  if (!stories) {
+    return <h1>Loading...</h1>;
+  }
+
+  //REFERENCED: https://stackoverflow.com/questions/44582097/how-to-sort-array-by-date
+  const sortedStories = [...stories].sort(
+    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)
+  );
+
+  // console.log("UNSORTED STORIES", stories);
+  // console.log("SORTED STORIES", sortedStories);
+
   return (
-    <div className="SpaceDetails">
+    <div style={styles} className="SpaceDetails">
       <div className="SpaceDetails-headerbox">
-        <h1 className="SpaceDetails-header">Born And Raiser in Phill</h1>
-        <h3 className="SpaceDetails-subheader">How I became the prince of Bel Air</h3>
+        <h1 className="SpaceDetails-header">{space.title}</h1>
+        <h3 className="SpaceDetails-subheader">{space.description}</h3>
       </div>
       <div className="SpaceDetails-main">
-        <img
-          src="https://images.unsplash.com/photo-1604756463129-11ef41b00d56?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-          className="SpaceDetails-image"
-          alt="profile"
-        />
+        {!space.stories ? (
+          <h1>Loading...</h1>
+        ) : (
+          sortedStories?.map((story) => (
+            <SpaceStory
+              key={story.id}
+              name={story.name}
+              image={story.imageUrl}
+              content={story.content}
+              createdAt={story.createdAt}
+            />
+          ))
+        )}
       </div>
     </div>
   );

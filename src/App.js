@@ -11,9 +11,10 @@ import Login from "./pages/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
-import Home from "./pages/Home/Home";
-import Other from "./pages/Other/Other";
+
 import SpaceDetails from "./pages/SpaceDetails/SpaceDetails";
+import Spaces from "./pages/Spaces/Spaces";
+import MySpace from "./pages/MySpace/MySpace";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,9 +30,9 @@ function App() {
       <MessageBox />
       {isLoading ? <Loading /> : null}
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Spaces} />
         <Route exact path="/spaces/:id" component={SpaceDetails} />
-        <Route exact path="/other" component={Other} />
+        <Route exact path="/other" component={MySpace} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
       </Switch>
