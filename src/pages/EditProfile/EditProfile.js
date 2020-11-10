@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { selectUserInfo, selectUserSpace } from "../../store/mySpace/mySpaceSelectors";
+import { selectUserSpace, updateSuccess } from "../../store/mySpace/mySpaceSelectors";
 import "./EditProfile.css";
-import _ from "lodash";
-import { fetchUserSpace, updateSpace } from "../../store/mySpace/mySpaceActions";
+import { updateSpace } from "../../store/mySpace/mySpaceActions";
+import { selectToken } from "../../store/user/selectors";
 
 function EditProfile() {
   const history = useHistory();
   const dispatch = useDispatch();
   const space = useSelector(selectUserSpace);
-  const user = useSelector(selectUserInfo);
-
-  console.log("WHATS IN SPACE???!", space);
+  const token = useSelector(selectToken);
+  const success = useSelector(updateSuccess);
 
   const [profileData, setProfileData] = useState({
     title: space?.title,
@@ -23,12 +22,17 @@ function EditProfile() {
     spaceId: space?.id,
   });
 
-  if (_.isEmpty(user)) {
-    history.push("/");
-  }
+  useEffect(() => {
+    if (token === null) {
+      history.push("/");
+    }
 
-  // console.log(postData);
-  // console.log("postOK", postOk);
+    if (success) {
+      setTimeout(() => {
+        history.push("/myspace");
+      }, 4000);
+    }
+  }, [dispatch, token, history, success]);
 
   const styles = {
     backgroundColor: space?.backgroundColor,
@@ -38,8 +42,7 @@ function EditProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(updateSpace(profileData));
-    dispatch(fetchUserSpace());
+    dispatch(updateSpace({ ...profileData }));
   };
 
   return (
@@ -97,11 +100,11 @@ function EditProfile() {
           />
 
           <button className="CreatePost-btn">Submit Changes Bro!</button>
-          {/* {postOk ? (
+          {success ? (
             <div>
-              <p>Post successfully submmited bro!</p>
+              <p>Space successfully updated bro!</p>
             </div>
-          ) : null} */}
+          ) : null}
         </form>
       </div>
     </div>

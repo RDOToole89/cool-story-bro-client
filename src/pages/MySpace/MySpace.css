@@ -2,8 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2em 1em 8em 1em;
 }
 
 .MySpace-jumbo {
   text-align: center;
+}
+
+.MySpace-btn {
+  margin-right: 2em;
 }

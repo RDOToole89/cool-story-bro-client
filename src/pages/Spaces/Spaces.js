@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import SpacesFeed from "../../components/SpacesFeed/SpacesFeed";
 import { fetchUserSpace } from "../../store/mySpace/mySpaceActions";
 import { fetchSpaces } from "../../store/space/spaceActions";
+import "./Spaces.css";
 
 function Spaces() {
   const dispatch = useDispatch();

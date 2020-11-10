@@ -6,6 +6,14 @@ export const selectUserSpace = (reduxState) => {
   return reduxState.mySpace.userData.space;
 };
 
+export const updateSuccess = (reduxState) => {
+  return reduxState.mySpace.updateSuccess;
+};
+
+export const postSuccess = (reduxState) => {
+  return reduxState.mySpace.postSuccess;
+};
+
 export const selectUserStories = (reduxState) => {
   const stories = reduxState.mySpace.userData.space?.stories;
 
@@ -14,8 +22,4 @@ export const selectUserStories = (reduxState) => {
   } else {
     return stories;
   }
-};
-
-export const postSuccess = (reduxState) => {
-  return reduxState.mySpace.postSuccess;
 };

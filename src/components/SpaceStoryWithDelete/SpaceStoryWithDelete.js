@@ -5,7 +5,6 @@ import "./SpaceStoryWithDelete.css";
 
 function SpaceStoryWithDelete(props) {
   const dispatch = useDispatch();
-  // console.log("WHAT IN THE PROPS?", props);
 
   const { name, image, content, createdAt, id } = props;
 

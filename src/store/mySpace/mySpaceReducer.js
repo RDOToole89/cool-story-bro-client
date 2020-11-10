@@ -2,8 +2,8 @@ const initialState = {
   userData: {},
   newPost: {},
   postSuccess: false,
-  newProfile: {},
-  profileSuccess: false,
+  updatedSpace: {},
+  updateSuccess: false,
 };
 
 const mySpaceReducer = (state = initialState, action) => {
@@ -15,7 +15,6 @@ const mySpaceReducer = (state = initialState, action) => {
       };
     }
     case "SAVE_NEW_POST": {
-      console.log("WHAT IS IN SAVE_NEW_POST PAYLOAD?", action.payload);
       return {
         ...state,
         newPost: { ...state.newPost, ...action.payload },
@@ -34,23 +33,23 @@ const mySpaceReducer = (state = initialState, action) => {
         postSuccess: false,
       };
     }
-    case "SAVE_NEW_PROFILE": {
+    case "SAVE_UPDATED_SPACE": {
       return {
         ...state,
-        newProfile: { ...state.newProfile, ...action.payload },
-        profileSuccess: true,
+        updatedSpace: { ...state.updatedSpace, ...action.payload },
+        updateSuccess: true,
       };
     }
-    case "SET_PROFILE_SUCCESS": {
+    case "SET_UPDATE_SUCCESS": {
       return {
         ...state,
-        profileSuccess: true,
+        updateSuccess: true,
       };
     }
-    case "SET_PROFILE_FAILURE": {
+    case "SET_UPDATE_FAILURE": {
       return {
         ...state,
-        profileSuccess: false,
+        updateSuccess: false,
       };
     }
 

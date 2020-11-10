@@ -193,16 +193,16 @@ You will be provided with a wireframe that shows an overview of the app along wi
 - When you click this button a form appears so you can post a story
 - You should only be able to do this when you are logged in
 
-| Criteria                                                                            | Points |
-| ----------------------------------------------------------------------------------- | ------ |
-| There is a button with `Post a cool story bro` on `My space`                        | 0.5    |
-| Clicking the button makes a form appear with the correct inputs for posting a story | 1.5    |
-| When a user enters an imageUrl, they can see a preview of the image                 | 1      |
-| When the form is submitted a request is sent to the server to create the story      | 3      |
-| The request uses JWT authorization                                                  | 2      |
-| The user sees a success message if the story was posted successfully                | 1      |
-| The success message is an alert, confirm or prompt popup or console.log             | -1     |
-| Total                                                                               | 9      |
+| Criteria                                                                            | Points  |
+| ----------------------------------------------------------------------------------- | ------- |
+| There is a button with `Post a cool story bro` on `My space`                        | 0.5 0.5 |
+| Clicking the button makes a form appear with the correct inputs for posting a story | 1.5 1.5 |
+| When a user enters an imageUrl, they can see a preview of the image                 | 1 1     |
+| When the form is submitted a request is sent to the server to create the story      | 3 3     |
+| The request uses JWT authorization                                                  | 2 2     |
+| The user sees a success message if the story was posted successfully                | 1 1     |
+| The success message is an alert, confirm or prompt popup or console.log             | -1 0    |
+| Total                                                                               | 9 7     |
 
 ### 6. As a logged in user I want to be able to edit my space, so I can express myself
 

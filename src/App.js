@@ -10,13 +10,14 @@ import Login from "./pages/Login";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
-import { getUserWithStoredToken } from "./store/user/actions";
+import { bootstrapLoginState, getUserWithStoredToken } from "./store/user/actions";
 
 import SpaceDetails from "./pages/SpaceDetails/SpaceDetails";
 import Spaces from "./pages/Spaces/Spaces";
 import MySpace from "./pages/MySpace/MySpace";
 import CreatePost from "./pages/CreatePost/CreatePost";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
+    dispatch(bootstrapLoginState());
   }, [dispatch]);
 
   return (
@@ -40,6 +42,7 @@ function App() {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
       </Switch>
+      <Footer />
     </div>
   );
 }

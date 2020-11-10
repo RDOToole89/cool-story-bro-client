@@ -32,9 +32,6 @@ function SpaceDetails() {
     (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)
   );
 
-  // console.log("UNSORTED STORIES", stories);
-  // console.log("SORTED STORIES", sortedStories);
-
   return (
     <div style={styles} className="SpaceDetails">
       <div className="SpaceDetails-headerbox">

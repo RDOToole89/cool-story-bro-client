@@ -7,6 +7,7 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from "../appState/actions";
+import { fetchUserSpace } from "../mySpace/mySpaceActions";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
@@ -108,4 +109,14 @@ export const getUserWithStoredToken = () => {
       dispatch(appDoneLoading());
     }
   };
+};
+
+export const bootstrapLoginState = () => async (dispatch, getState) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    dispatch(fetchUserSpace());
+  } else {
+    console.log("no token stored in localstorage");
+  }
 };

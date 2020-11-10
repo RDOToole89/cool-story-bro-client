@@ -2,8 +2,6 @@ import React from "react";
 import "./SpaceStory.css";
 
 function SpaceStory(props) {
-  // console.log("WHAT IN THE PROPS?", props);
-
   const { name, image, content, createdAt } = props;
 
   return (

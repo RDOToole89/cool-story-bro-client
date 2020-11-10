@@ -3,33 +3,24 @@ import "./MySpace.css";
 import { Jumbotron } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserSpace } from "../../store/mySpace/mySpaceActions";
-import {
-  selectUserInfo,
-  selectUserSpace,
-  selectUserStories,
-} from "../../store/mySpace/mySpaceSelectors";
+import { selectUserSpace, selectUserStories } from "../../store/mySpace/mySpaceSelectors";
 import SpaceStoryWithDelete from "../../components/SpaceStoryWithDelete/SpaceStoryWithDelete";
 import { useHistory } from "react-router-dom";
-import _ from "lodash";
+import { selectToken } from "../../store/user/selectors";
 
 function MySpace() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector(selectUserInfo);
+  const token = useSelector(selectToken);
   const space = useSelector(selectUserSpace);
   const stories = useSelector(selectUserStories);
 
-  // console.log("WHAT IS USER?", user);
-  // console.log("WHAT IS SPACE?", space);
-  // console.log("WHAT IS STORIES", stories);
-
   useEffect(() => {
     dispatch(fetchUserSpace());
-  }, [dispatch]);
-
-  if (_.isEmpty(user)) {
-    history.push("/");
-  }
+    if (token === null) {
+      history.push("/");
+    }
+  }, [dispatch, token, history]);
 
   const styles = {
     backgroundColor: space?.backgroundColor,
@@ -57,8 +48,12 @@ function MySpace() {
       ) : (
         <div className="MySpace-container">
           <div className="MySpace-buttons">
-            <button onClick={goToEditProfile}>Edit My Space</button>
-            <button onClick={goToCreatePost}>Post a cool story bro</button>
+            <button className="MySpace-btn" onClick={goToEditProfile}>
+              Edit My Space
+            </button>
+            <button className="MySpace-btn" onClick={goToCreatePost}>
+              Post a cool story bro
+            </button>
           </div>
           <div className="MySpace-stories">
             {stories?.map((story) => (

@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createNewPost, setPostFailure } from "../../store/mySpace/mySpaceActions";
-import { postSuccess, selectUserInfo, selectUserSpace } from "../../store/mySpace/mySpaceSelectors";
+import { createNewPost } from "../../store/mySpace/mySpaceActions";
+import { postSuccess, selectUserSpace } from "../../store/mySpace/mySpaceSelectors";
 import "./CreatePost.css";
-import _ from "lodash";
+import { selectToken } from "../../store/user/selectors";
 
 function CreatePost() {
   const history = useHistory();
   const dispatch = useDispatch();
   const space = useSelector(selectUserSpace);
   const postOk = useSelector(postSuccess);
-  const user = useSelector(selectUserInfo);
-  // console.log(space);
+  const token = useSelector(selectToken);
+
   const [postData, setPostData] = useState({
     name: "",
     content: "",
@@ -21,12 +21,17 @@ function CreatePost() {
     spaceId: space?.id,
   });
 
-  if (_.isEmpty(user)) {
-    history.push("/");
-  }
+  useEffect(() => {
+    if (token === null) {
+      history.push("/");
+    }
 
-  // console.log(postData);
-  // console.log("postOK", postOk);
+    if (postOk) {
+      setTimeout(() => {
+        history.push("/myspace");
+      }, 4000);
+    }
+  }, [token, history, postOk]);
 
   const styles = {
     backgroundColor: space?.backgroundColor,
@@ -35,16 +40,8 @@ function CreatePost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setPostFailure());
 
-    dispatch(createNewPost(postData));
-
-    // if (postOk) {
-    //   setInterval(() => {
-    //     dispatch(setPostFailure());
-    //     history.push("/myspace");
-    //   }, 4000);
-    // }
+    dispatch(createNewPost({ ...postData }));
   };
 
   return (

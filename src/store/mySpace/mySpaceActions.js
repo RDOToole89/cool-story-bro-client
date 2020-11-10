@@ -2,17 +2,17 @@ import Axios from "axios";
 import { API_URL } from "../../config/constants";
 import { appDoneLoading, appLoading } from "../appState/actions";
 
-export const saveUserSpace = (userSpaceObject) => {
+export const saveUserSpace = (space) => {
   return {
     type: "SAVE_USER_SPACE",
-    payload: userSpaceObject,
+    payload: { ...space },
   };
 };
 
-export const saveNewPost = (userPostObject) => {
+export const saveNewPost = (post) => {
   return {
     type: "SAVE_NEW_POST",
-    payload: userPostObject,
+    payload: { ...post },
   };
 };
 
@@ -27,29 +27,46 @@ export const setPostFailure = () => {
   };
 };
 
-export const saveNewProfile = (userProfileObject) => {
+export const saveUpdatedSpace = (space) => {
   return {
-    type: "SAVE_NEW_PROFILE",
-    payload: userProfileObject,
+    type: "SAVE_UPDATED_SPACE",
+    payload: { ...space },
   };
 };
 
-export const createNewPost = (userPostObject) => async (dispatch, getState) => {
-  // console.log("USEROBJECT", userPostObject);
+export const setUpdateSuccess = () => {
+  return {
+    type: "SET_UPDATE_SUCCESS",
+  };
+};
+export const setUpdateFailure = () => {
+  return {
+    type: "SET_UPDATE_FAILURE",
+  };
+};
 
+export const createNewPost = (post) => async (dispatch, getState) => {
+  const { name, content, imageUrl, spaceId } = post;
   const token = getState().user.token;
+
+  if (!name || !content || !imageUrl || !spaceId) {
+    return;
+  }
 
   try {
     const response = await Axios.post(
       `${API_URL}/spaces/stories`,
-      { ...userPostObject },
+      { name, content, imageUrl, spaceId },
       {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
 
     if (response) {
-      dispatch(saveNewPost(userPostObject));
+      dispatch(saveNewPost({ ...post }));
+      setTimeout(() => {
+        dispatch(setPostFailure());
+      }, 2000);
     }
   } catch (e) {
     console.log(e);
@@ -58,63 +75,73 @@ export const createNewPost = (userPostObject) => async (dispatch, getState) => {
 
 export const fetchUserSpace = () => async (dispatch, getState) => {
   dispatch(appLoading());
-
   const token = getState().user.token;
 
-  if (token) {
-    try {
-      const response = await Axios.get(`${API_URL}/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      // console.log("WHAT IS USERSPACE?", response.data);
+  if (!token) {
+    return;
+  }
 
-      dispatch(saveUserSpace(response.data));
+  try {
+    const response = await Axios.get(`${API_URL}/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-      if (response) {
-        dispatch(appDoneLoading());
-      }
-    } catch (e) {
-      console.log(e);
+    dispatch(saveUserSpace({ ...response.data }));
+
+    if (response) {
+      dispatch(appDoneLoading());
     }
-  } else {
-    return "User not logged in.";
+  } catch (e) {
+    console.log(e);
   }
 };
 
 export const deleteStory = (storyId) => async (dispatch, getState) => {
-  // console.log("INSIDE DELETESTORY?");
+  const token = getState().user.token;
 
-  if (storyId) {
-    try {
-      const response = await Axios.delete(`${API_URL}/spaces/stories`, { data: { id: storyId } });
-      console.log("WHAT IS RESPONSE???!", response);
-    } catch (e) {
-      console.log(e.message);
+  console.log("IS THERE A TOKEN?", token);
+
+  console.log(storyId);
+  if (!storyId || !token) {
+    return;
+  }
+
+  try {
+    const response = await Axios.delete(
+      `${API_URL}/spaces/stories`,
+      { data: { id: storyId } }
+      // { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    if (response) {
+      console.log("Story successfully deleted.");
     }
+  } catch (e) {
+    console.log(e.message);
   }
 };
 
 export const updateSpace = (spaceObject) => async (dispatch, getState) => {
-  console.log("INSIDE UPDATESPACE???");
-
-  console.log("WHATS IN SPACEOBJECT????", spaceObject);
-
+  const { backgroundColor, color, description, spaceId, title } = spaceObject;
   const token = getState().user.token;
+
+  if (!backgroundColor || !color || !description || !spaceId || !title) {
+    return;
+  }
 
   try {
     const response = await Axios.patch(
       `${API_URL}/spaces/`,
-      { ...spaceObject },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
+      { backgroundColor, color, description, spaceId, title },
+      { headers: { Authorization: `Bearer ${token}` } }
     );
 
     if (response) {
-      dispatch(saveNewProfile(spaceObject));
+      dispatch(saveUpdatedSpace({ ...spaceObject }));
+      setTimeout(() => {
+        dispatch(setUpdateFailure());
+      }, 2000);
     }
-
-    console.log("WHAT IS RESPONSE???!", response);
   } catch (e) {
     console.log(e.message);
   }
