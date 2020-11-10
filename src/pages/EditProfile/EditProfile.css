@@ -21,9 +21,20 @@
   align-self: flex-start;
 }
 
+.EditProfile-label-color {
+  align-self: center;
+}
+
 .EditProfile-input {
   width: 100%;
   align-self: flex-start;
+  margin-bottom: 0.5em;
+}
+
+.EditProfile-input-color {
+  width: 100px;
+  height: 100px;
+  align-self: center;
   margin-bottom: 0.5em;
 }
 

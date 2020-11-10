@@ -27,6 +27,13 @@ export const setPostFailure = () => {
   };
 };
 
+export const saveNewProfile = (userProfileObject) => {
+  return {
+    type: "SAVE_NEW_PROFILE",
+    payload: userProfileObject,
+  };
+};
+
 export const createNewPost = (userPostObject) => async (dispatch, getState) => {
   // console.log("USEROBJECT", userPostObject);
 
@@ -84,5 +91,31 @@ export const deleteStory = (storyId) => async (dispatch, getState) => {
     } catch (e) {
       console.log(e.message);
     }
+  }
+};
+
+export const updateSpace = (spaceObject) => async (dispatch, getState) => {
+  console.log("INSIDE UPDATESPACE???");
+
+  console.log("WHATS IN SPACEOBJECT????", spaceObject);
+
+  const token = getState().user.token;
+
+  try {
+    const response = await Axios.patch(
+      `${API_URL}/spaces/`,
+      { ...spaceObject },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (response) {
+      dispatch(saveNewProfile(spaceObject));
+    }
+
+    console.log("WHAT IS RESPONSE???!", response);
+  } catch (e) {
+    console.log(e.message);
   }
 };

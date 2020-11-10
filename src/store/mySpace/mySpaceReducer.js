@@ -2,6 +2,8 @@ const initialState = {
   userData: {},
   newPost: {},
   postSuccess: false,
+  newProfile: {},
+  profileSuccess: false,
 };
 
 const mySpaceReducer = (state = initialState, action) => {
@@ -30,6 +32,25 @@ const mySpaceReducer = (state = initialState, action) => {
       return {
         ...state,
         postSuccess: false,
+      };
+    }
+    case "SAVE_NEW_PROFILE": {
+      return {
+        ...state,
+        newProfile: { ...state.newProfile, ...action.payload },
+        profileSuccess: true,
+      };
+    }
+    case "SET_PROFILE_SUCCESS": {
+      return {
+        ...state,
+        profileSuccess: true,
+      };
+    }
+    case "SET_PROFILE_FAILURE": {
+      return {
+        ...state,
+        profileSuccess: false,
       };
     }
 
