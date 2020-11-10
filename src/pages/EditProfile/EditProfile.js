@@ -30,7 +30,7 @@ function EditProfile() {
     if (success) {
       setTimeout(() => {
         history.push("/myspace");
-      }, 4000);
+      }, 3000);
     }
   }, [dispatch, token, history, success]);
 
@@ -43,6 +43,11 @@ function EditProfile() {
     e.preventDefault();
 
     dispatch(updateSpace({ ...profileData }));
+
+    setProfileData({
+      title: "",
+      description: "",
+    });
   };
 
   return (

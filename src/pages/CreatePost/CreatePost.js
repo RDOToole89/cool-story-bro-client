@@ -29,7 +29,7 @@ function CreatePost() {
     if (postOk) {
       setTimeout(() => {
         history.push("/myspace");
-      }, 4000);
+      }, 3000);
     }
   }, [token, history, postOk]);
 
@@ -42,6 +42,11 @@ function CreatePost() {
     e.preventDefault();
 
     dispatch(createNewPost({ ...postData }));
+
+    setPostData({
+      name: "",
+      content: "",
+    });
   };
 
   return (
